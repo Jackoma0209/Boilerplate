@@ -101,7 +101,7 @@ Create a distributable zip from repository root:
 ```bash
 rm -rf /tmp/agentforge-release
 mkdir -p /tmp/agentforge-release
-rsync -av --exclude node_modules --exclude .next --exclude .git /home/runner/work/Boilerplate/Boilerplate/ /tmp/agentforge-release/
+rsync -av --exclude node_modules --exclude .next --exclude .git ./ /tmp/agentforge-release/
 cd /tmp && zip -r agentforge-mvp.zip agentforge-release
 ```
 
