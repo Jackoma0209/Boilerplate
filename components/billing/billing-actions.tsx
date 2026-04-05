@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 async function postAndRedirect(url: string) {
@@ -13,9 +14,18 @@ async function postAndRedirect(url: string) {
 export function BillingActions() {
   const [loading, setLoading] = useState<"checkout" | "portal" | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+
+  const statusMessage = useMemo(() => {
+    if (searchParams.get("success") === "1") return "Checkout completed in Stripe test mode.";
+    if (searchParams.get("canceled") === "1") return "Checkout canceled.";
+    return null;
+  }, [searchParams]);
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
+      <p className="text-sm text-zinc-600">Use Stripe test mode keys and test card 4242 4242 4242 4242.</p>
+
       <Button
         type="button"
         disabled={loading !== null}
@@ -53,6 +63,7 @@ export function BillingActions() {
         {loading === "portal" ? "Opening portal..." : "Open Billing Portal"}
       </Button>
 
+      {statusMessage ? <p className="text-sm text-emerald-700">{statusMessage}</p> : null}
       {error ? <p className="text-sm text-red-600">{error}</p> : null}
     </div>
   );

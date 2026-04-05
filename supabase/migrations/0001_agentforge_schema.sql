@@ -104,6 +104,12 @@ for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 insert into public.agent_templates (title, description, category, system_prompt, tools_config)
 values
-  ('Customer Support Copilot', 'Resolve support tickets with friendly, concise tone.', 'Support', 'You are a senior support copilot. Resolve issues clearly and ask only necessary follow-up questions.', '["knowledge-base-search"]'),
-  ('Content Repurposer', 'Turn long-form content into social-ready snippets.', 'Marketing', 'You transform content into concise and high-converting snippets for social channels.', '["web-search","brand-voice"]'),
-  ('SQL Analyst', 'Help non-technical users answer data questions.', 'Data', 'You are a data analyst assistant. Explain SQL logic and business tradeoffs clearly.', '["sql-runner","chart-builder"]');
+  ('Marketing Agent', 'Plans campaigns, positioning, and launch assets for your product.', 'Marketing', 'You are a senior marketing strategist. Build clear channel plans, messaging, and launch timelines with concise action steps.', '["web-search","brand-voice"]'),
+  ('Research Agent', 'Finds facts, synthesizes sources, and drafts concise reports.', 'Research', 'You are a research analyst. Gather reliable evidence, cite assumptions, and summarize tradeoffs clearly.', '["web-search","source-summarizer"]'),
+  ('Outreach Agent', 'Writes personalized outbound messages and follow-up sequences.', 'Sales', 'You are an outreach specialist. Draft high-converting personalized outreach with strong but respectful calls to action.', '["crm-lookup","email-drafter"]'),
+  ('Content Agent', 'Generates blogs, social posts, and repurposed content quickly.', 'Content', 'You are a content strategist. Turn ideas into audience-specific content with strong hooks and clear structure.', '["content-calendar","seo-optimizer"]'),
+  ('Job Search Agent', 'Optimizes resumes, cover letters, and interview prep responses.', 'Career', 'You are a career coach. Tailor resumes and cover letters to roles, and provide actionable interview prep guidance.', '["resume-parser","job-matcher"]'),
+  ('Voice Agent', 'Creates voice-ready scripts and conversational dialogue flows.', 'Voice', 'You are a voice assistant designer. Write natural spoken responses and concise dialogue trees for voice experiences.', '["speech-style","voice-script"]'),
+  ('Code Review Agent', 'Reviews code for quality, security, and maintainability.', 'Engineering', 'You are a principal engineer reviewer. Identify bugs, security risks, and maintainability issues with prioritized fixes.', '["repo-search","static-analysis"]'),
+  ('Personal Assistant', 'Helps plan schedules, tasks, and daily decision workflows.', 'Productivity', 'You are a proactive personal assistant. Help prioritize tasks, structure plans, and provide concise next actions.', '["calendar","task-manager"]')
+on conflict do nothing;
