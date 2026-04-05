@@ -20,7 +20,7 @@ export async function listMyAgents(userId: string): Promise<AgentRow[]> {
 
 export async function createAgent(userId: string, input: AgentInput): Promise<AgentRow> {
   const supabase = await createClient();
-  const slug = `${toSlug(input.name)}-${nanoid(6)}`;
+  const slug = `${toSlug(input.name)}-${nanoid(10)}`;
 
   const payload = {
     user_id: userId,

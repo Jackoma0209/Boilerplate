@@ -104,6 +104,6 @@ for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 insert into public.agent_templates (title, description, category, system_prompt, tools_config)
 values
-  ('Customer Support Copilot', 'Resolve support tickets with friendly concise tone.', 'Support', 'You are a senior support copilot. Resolve issues clearly and ask only necessary follow-up questions.', '["knowledge-base-search"]'),
+  ('Customer Support Copilot', 'Resolve support tickets with friendly, concise tone.', 'Support', 'You are a senior support copilot. Resolve issues clearly and ask only necessary follow-up questions.', '["knowledge-base-search"]'),
   ('Content Repurposer', 'Turn long-form content into social-ready snippets.', 'Marketing', 'You transform content into concise and high-converting snippets for social channels.', '["web-search","brand-voice"]'),
   ('SQL Analyst', 'Help non-technical users answer data questions.', 'Data', 'You are a data analyst assistant. Explain SQL logic and business tradeoffs clearly.', '["sql-runner","chart-builder"]');

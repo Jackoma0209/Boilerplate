@@ -3,18 +3,14 @@ import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/billing/stripe";
 import { createClient } from "@/lib/supabase/server";
 
-function getPeriodEndIso(subscription: unknown): string | null {
-  if (
-    typeof subscription === "object" &&
-    subscription !== null &&
-    "current_period_end" in subscription &&
-    typeof (subscription as { current_period_end?: unknown }).current_period_end === "number"
-  ) {
-    const seconds = (subscription as { current_period_end: number }).current_period_end;
-    return new Date(seconds * 1000).toISOString();
-  }
+type StripeSubscriptionWithPeriod = {
+  current_period_end?: number;
+};
 
-  return null;
+function getPeriodEndIso(subscription: StripeSubscriptionWithPeriod): string | null {
+  return typeof subscription.current_period_end === "number"
+    ? new Date(subscription.current_period_end * 1000).toISOString()
+    : null;
 }
 
 export async function POST(request: Request) {
@@ -50,7 +46,7 @@ export async function POST(request: Request) {
   }
 
   if (event.type === "customer.subscription.updated" || event.type === "customer.subscription.deleted") {
-    const subscription = event.data.object;
+    const subscription = event.data.object as StripeSubscriptionWithPeriod & { id: string; status: string };
     await supabase
       .from("subscriptions")
       .update({

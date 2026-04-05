@@ -50,7 +50,12 @@ export function AgentForm({
 
     if (!res.ok) {
       const json = await res.json();
-      setError(json.error?.formErrors?.[0] ?? "Failed to save agent");
+      const message =
+        json?.error?.formErrors?.[0] ||
+        json?.error?.message ||
+        json?.error ||
+        "Unable to save agent. Please review the form and try again.";
+      setError(String(message));
       setLoading(false);
       return;
     }

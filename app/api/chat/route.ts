@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Failed to create chat" }, { status: 500 });
     }
 
-    finalChatId = String(chat.id);
+    finalChatId = chat.id;
   }
 
   const latest = messages[messages.length - 1];
