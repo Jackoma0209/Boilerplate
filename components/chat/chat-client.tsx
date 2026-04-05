@@ -44,7 +44,7 @@ export function ChatClient({ agentId }: { agentId: string }) {
       <form action={onSubmit} className="flex gap-2 border-t border-zinc-200 p-3">
         <Input name="prompt" placeholder="Send a message..." disabled={status !== "ready"} />
         <Button type="submit" disabled={status !== "ready"}>
-          {status === "streaming" ? "Sending..." : "Send"}
+          {status === "streaming" ? "Generating..." : "Send"}
         </Button>
       </form>
     </div>

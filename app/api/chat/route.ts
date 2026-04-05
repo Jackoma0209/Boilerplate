@@ -27,16 +27,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Agent not found" }, { status: 404 });
   }
 
-  let finalChatId = chatId;
-  if (!finalChatId) {
+  async function resolveChatId(): Promise<string> {
+    if (chatId) return chatId;
     const chatInsert: ChatInsert = { user_id: user.id, agent_id: agentId, title: "New Chat" };
     const { data: chat, error: chatError } = await supabase.from("chats").insert(chatInsert).select("id").single();
 
     if (chatError || !chat) {
-      return NextResponse.json({ error: "Failed to create chat" }, { status: 500 });
+      throw new Error("Failed to create chat");
     }
 
-    finalChatId = chat.id;
+    return chat.id;
+  }
+
+  let finalChatId: string;
+  try {
+    finalChatId = await resolveChatId();
+  } catch {
+    return NextResponse.json({ error: "Failed to create chat" }, { status: 500 });
   }
 
   const latest = messages[messages.length - 1];
