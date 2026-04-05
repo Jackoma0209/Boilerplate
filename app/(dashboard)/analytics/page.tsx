@@ -32,8 +32,8 @@ export default async function AnalyticsPage() {
           {analytics.recentEvents.length === 0 ? (
             <p className="text-sm text-zinc-600">No events yet.</p>
           ) : (
-            analytics.recentEvents.map((event, index) => (
-              <p key={index} className="text-sm">
+            analytics.recentEvents.map((event) => (
+              <p key={event.id} className="text-sm">
                 {event.event_name} · {new Date(event.created_at).toLocaleString()}
               </p>
             ))
