@@ -59,7 +59,6 @@ export async function updateAgent(agentId: string, userId: string, input: AgentI
       system_prompt: input.systemPrompt,
       tools_config: input.toolsConfig,
       is_public: input.isPublic,
-      updated_at: new Date().toISOString(),
     })
     .eq("id", agentId)
     .eq("user_id", userId)
